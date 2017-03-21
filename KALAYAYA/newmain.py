@@ -468,9 +468,10 @@ entreabierta, los cajones están llenos de material de dibujo con el que has
 decorado todas las paredes. La alfombra tupida está llena de piezas de Lego
 y dibujos caídos del techo, hace tiempo que ya no caben en las paredes...''', ##cuarto
                      '''
-Es muy pequeño. La bañera está llena de juguetes flotando, el WC está lleno
+Es muy pequeño. La bañera está llena de juguetes flotando, el WC está repleto
 de pegatinas que vienen en los bollos. Al lado hay un mini WC que nunca has
-sabido para qué sirve. ''', ##baño
+sabido para qué sirve. Hay muchos cómics repartidos por el mobiliario, apilados
+en columnas y almacenados en cajas.''', ##baño
                      '''
 Es un lugar oscuro. Las estanterías son tan altas que ni saltando llegas a ver
 el primer estante. El polvo que hay entre los miles de objetos almacenados se
@@ -830,7 +831,7 @@ def lavabo():
         newPrint('''
 1) Buscar en el cajón que hay debajo del lavabo.
 
-2) Examinar los tebeos.
+2) Examinar las cajas.
 
 3) Mirar en la bañera.
 
@@ -1051,7 +1052,11 @@ Pulsa 0 para cancelar.''')
                 newPrint('''
 Ha sido muy peligroso, no te apetece repetir la experiencia.''')
             elif 'calcetines' in eventos:
-                newPrint('''
+                if 'upSilla' in eventos:
+                    newPrint('''
+Ya estás subido a la silla.''')
+                else:
+                    newPrint('''
 Subes a la silla, no es muy estable...''')
                 eventos.append('upSilla')
             else:
@@ -1763,7 +1768,7 @@ def pasilloEstrecho():
         gameOver()
         options = '0 1'.split()
         newPrint('''
-1) Examinar al gato.
+1) Recorrer el pasillo.
 ''')
         if 'neverLav' in eventos:
             newPrint('''
@@ -1776,7 +1781,7 @@ Pulsa 0 para cancelar.''')
         if opcion == '1':
             if 'pateDado' not in eventos:
                 newPrint('''
-Puar está durmiendo en medio del arco que separa las dos parrtes del pasillo.
+Puar está durmiendo en medio del arco que separa las dos partes del pasillo.
 Está muy gordo, no podrás moverlo.
 Quizá puedas utilizar algo...
 ''')
@@ -1977,8 +1982,7 @@ def escalera():
         newPrint('''
 1) Cuadro eléctrico
 
-2) Mirar el reloj
-''')
+2) Mirar el reloj''')
         if 'keyUsed' not in eventos:
             newPrint('''
 3) Puerta cerrada''')
