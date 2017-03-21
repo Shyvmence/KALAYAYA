@@ -494,7 +494,7 @@ crema, calzada con un par de ladrillos, que crea terremotos cuando se pone en ma
 El taller del abuelo es un lugar misterioso, huele a sudor y trabajo. Está lleno
 de utensilios raros y puntiagudos. Jamás te ha dejado entrar, dice que es peligroso.
 Un día miraste a través de la cerradura de la puerta, no entendiste para qué quería
-tanto látex negro.''', ##taller
+tanta tela negra.''', ##taller
                      '''
 La cocina apesta a eso verde tan sano que a la abuela le interesa tanto que coma.
 Los cajones están abiertos y forrados por todas partes de unas pegatinas en las
@@ -511,11 +511,11 @@ Hay un mueble de madera alargado a cada lado del pasillo, lo que lo hace aún m�
 que la otra parte. ''', ##pasillocorto
                      '''
 Es una habitación muy pequeña, poco iluminada y que huele a rancio, como el abuelo cuando
-viene de tomar el aire. Las batas largas de color rosa tapan todo el fondo de los armarios.
+viene de tomar el aire. Las batas largas de color rosa tapan todo el fondo del mobiliario.
 Varios armarios roperos enmarcan la sala. El más grande es el de los abrigos. Al lado hay
 un panel con números. En el centro de la sala, sobre la moqueta de pelo marrón, hay una silla
 de madera plegáble con unos calzoncillos colgando del respaldo. Hay demasiado eco para una
-habiación de este tamaño. ''', ##vestidor
+habitación de este tamaño. ''', ##vestidor
                      '''
 Las escaleras llevan al segundo piso. Los peldaños de madera crujen cuando los pisas.
 La barandilla está astillada por debajo y demasiado pulida por encima.
@@ -784,7 +784,6 @@ El dibujo de D'Artacán dormido era más bonito cuando aún estaba colgado.''')
                 newPrint('''
 Tienes pendiente: limpiar el baño, la cocina, el salón, el pasillo y el
 vestidor de los abuelos.''')
-                newPrint()
         if opcion == '3':
             if iman not in yaLooteado and 'pelusa' not in eventos:
                 newPrint('''
@@ -873,7 +872,7 @@ No hay mucho sitio donde ponerla...''')
                 else:
                     if evPosibles[0] not in eventos:
                         newPrint('''
-Pones el cajón dentro de la bañera vacía. Será mejor que recuerdes que
+Pones la caja dentro de la bañera vacía. Será mejor que recuerdes que
 está ahí la proxima vez que vayas a darte un baño.''')
                         eventos.append(evPosibles[0])
                     else:
@@ -1324,7 +1323,7 @@ def taller():
     global yaLooteado
     global hora
     global salaActual
-    evPosibles = 'dope herramientaX pelea win comboX'.split()
+    evPosibles = 'dope herramientaX pelea win comboX botella'.split()
     palo = 'PALO DE MADERA'
     gancho = 'GANCHO'
     cuerda = 'CUERDA'
@@ -1442,9 +1441,9 @@ sólo una. Coger dos haría que se tumbase, están en perfecto equilibrio.''')
             elif opcion1 == '2':
                 newPrint('''
 Hay cientos de botellas apiladas en la esquina derecha de la habitación.
-Llevan una etiqueta con la cara del abuelo. La bañera está hasta los topes del
-líquido amarillento que rellena las botellas. Huele rancio y asqueroso,
-como a fruta podrida.
+Llevan una etiqueta donde pone KALAYAYA bajo un dibujo de la cara del abuelo.
+La bañera está hasta los topes del líquido amarillento que rellena las botellas.
+Huele rancio y asqueroso, como a fruta podrida.
 
 1) Probar una de las botellas.
 
@@ -1506,9 +1505,7 @@ susurrar: "¿No vas a seguir bailando?"
 Le contestas que no puedes, te has hecho daño.''')
                                 opcion3 = '2'
                             elif opcion3_1 == '2':
-                                opcion3_2 = opcion3_1
-                                while opcion3_2 != '1':
-                                    newPrint('''
+                                newPrint('''
 La voz dulce te vuelve a susurrar: "¿No vas a seguir bailando?"
 Le contestas que estás cansado, que tienes que irte. La voz te insiste que quiere
 que bailes para siempre.
@@ -1516,14 +1513,16 @@ que bailes para siempre.
 1) Seguir bailando.
 
 2) Parar de bailar.''')
-                                    opcion3_2 = opcionValida(options)
-                                    if opcion3_2 == '1':
-                                        newPrint('''
+                                opcion3_2 = opcionValida(options)
+                                if opcion3_2 == '1':
+                                    newPrint('''
 Te fuerzas y sigues bailando hasta que te tuerces un tobillo y caes al suelo, te
 duele mucho. Los maniquíes ven que has dejado de bailar. La voz dulce te vuelve a
 susurrar: "¿No vas a seguir bailando?"
 Le contestas que no puedes, te has hecho daño.''')
-                                        opcion3 = '2'
+                                    opcion3 = '2'
+                                elif opcion3_2 == '2':
+                                    opcion3 = '2'
                         if opcion3 == '2':
                             newPrint('''
 El ambiente se enrarece. Los maniquíes paran de bailar y poco a poco abren las
@@ -1741,7 +1740,8 @@ La TV está apagada.
 Pulsa 0 para cancelar.''')
                     opcion4 = opcionValida(options)
                     if opcion4 == '1':
-                        newPrint('Enciendes la TV.')
+                        newPrint('''
+Enciendes la TV. ¡Están poniendo la serie de Tabla!''')
                         eventos.append('tvon')
                 else:
                     newPrint('''
@@ -1752,7 +1752,8 @@ La TV está encendida.
 Pulsa 0 para cancelar.''')
                     opcion4 = opcionValida(options)
                     if opcion4 == '1':
-                        newPrint('Apagas la TV.')
+                        newPrint('''
+Apagas la TV.''')
                         eventos.remove('tvon')
         else:
             break
@@ -1768,12 +1769,10 @@ def pasilloEstrecho():
         gameOver()
         options = '0 1'.split()
         newPrint('''
-1) Recorrer el pasillo.
-''')
+1) Recorrer el pasillo.''')
         if 'neverLav' in eventos:
             newPrint('''
-2) Puerta de la lavandería.
-''')
+2) Puerta de la lavandería.''')
             options.append('2')
         newPrint('''
 Pulsa 0 para cancelar.''')
@@ -1783,8 +1782,7 @@ Pulsa 0 para cancelar.''')
                 newPrint('''
 Puar está durmiendo en medio del arco que separa las dos partes del pasillo.
 Está muy gordo, no podrás moverlo.
-Quizá puedas utilizar algo...
-''')
+Quizá puedas utilizar algo...''')
                 if promptItem('LATA DE PATÉ DE GATO'):
                     eventos.append('pateDado')
                     loot.remove('LATA DE PATÉ DE GATO')
@@ -1919,8 +1917,7 @@ def pasilloCorto():
 
 3) Examinar el suelo.
 
-Pulsa 0 para cancelar.
-''')
+Pulsa 0 para cancelar.''')
         options = '0 1 2 3'.split()
         opcion = opcionValida(options)
         if opcion == '1':
@@ -2134,9 +2131,8 @@ Pulsa 0 para cancelar.''')
                 newPrint('''
 Entras y caminas hacia el fondo apartando abrigos de piel que pesan el triple
 que tú. Al fondo tocas algo frío con los dedos. La imagen de un campo lleno de
-nieve viene a tu mente. Cuando te acercas para ver lo que realmente es, descubres
-un par de cajas apiladas llenas de botellas. Las botellas tienen una etiqueta
-con la cara del abuelo: "Licor KALAYAYA".
+nieve viene a tu mente. Cuando te acercas para ver lo que es, descubres un par
+de cajas apiladas llenas de las botellas que viste en el taller del abuelo.
 Habías tocado una de las que estaba fuera de las cajas.''')
                 if 'gafas' not in eventos:
                     newPrint('''
@@ -2158,7 +2154,7 @@ Dentro de los cajones hay: calzoncillos, calcetines, camisetas interiores de alg
                 if 'CORBATA' not in yaLooteado:
                     newPrint('''
 Entre toda la ropa interior encuentras {0} - Se han enredado con
-unas cadenas y unas esposas de policía.'''.format('CORBATA'))
+unas cadenas y unas esposas de policía aterciopeladas.'''.format('CORBATA'))
                     getLoot('CORBATA')
         elif opcion == '2':
             if 'pass' not in eventos:
