@@ -945,11 +945,9 @@ Pulsa 0 para cancelar.
         options = '0 1 2'.split()
         opcion = opcionValida(options)
         if opcion == '1':
-            newPrint("")
             newPrint('''
 Está todo lleno de herramientas de jardinería... ¿Para qué quiere el abuelo
 todo esto, si no tenemos jardín?''')
-            newPrint("")
             newPrint('''
 1) Trastear las máquinas.
 
@@ -960,12 +958,17 @@ Pulsa 0 para cancelar.
 ¿Qué quieres hacer? ''')
             opcion1 = opcionValida(options)
             if opcion1 == '1':
-                newPrint('''
+                if 'herido' not in eventos:
+                    newPrint('''
 Está oscuro, no ves qué estás tocando, rozas un cuchillo muy afilado
 y te abres una herida muy grande en la mano. Debes curarla rápido o
 se infectará.''')
-                if 'herido' not in eventos:
                     eventos.append('herido')
+                else:
+                    newPrint('''
+Está oscuro, no ves qué estás tocando, rozas un cuchillo muy afilado.
+Te abres aun más la herida de la mano. Debes curarla rápido o se
+infectará.''')
             if opcion1 == '2':
                 newPrint('''
 Hay una que te llama la atención, es muy grande.''')
@@ -1006,9 +1009,11 @@ Olímpica de Tenis. Son muy bonitas, decides colgarte una al cuello.''')
                         eventos.append('bolsa')
         if opcion == '2':
             if lata in yaLooteado:
-                newPrint('No quiero volver a pasar la mano por ahí.')
+                newPrint('''
+No quiero volver a pasar la mano por ahí.'''')
             elif 'herido' in eventos:
-                newPrint('No puedo pasar la mano por sitios extraños con esta herida. Sería peligroso.')
+                newPrint('''
+No puedo pasar la mano por sitios extraños con esta herida. Sería peligroso.''')
             else:
                 if minigame_lata.game():
                     newPrint('''
@@ -1390,9 +1395,10 @@ sólo una. Coger dos haría que se tumbase, están en perfecto equilibrio.''')
                         if i not in loot:
                             optionsH.append(str(herramientas.index(i)+1))
                     for k in range(1, len(optionsH)):
-                        newPrint('({0}) {1}'.format(optionsH[k], herramientas[int(optionsH[k])-1]))
-                        newPrint("")
-                    newPrint('Pulsa 0 para cancelar.')
+                        newPrint('''
+({0}) {1}'''.format(optionsH[k], herramientas[int(optionsH[k])-1]))
+                    newPrint('''
+Pulsa 0 para cancelar.''')
                     opcionH = int(opcionValida(optionsH))
                     if opcionH != 0:
                         if len(optionsH) != 5:
@@ -1400,40 +1406,50 @@ sólo una. Coger dos haría que se tumbase, están en perfecto equilibrio.''')
                                 if j in loot:
                                     tool = j
                             loot.remove(tool)
+                        newPrint('''
+Tomas prestada la herramienta.''')
                         getLoot(herramientas[opcionH-1])
-                        newPrint('Tomas prestada la herramienta.')
+                        
                 elif opcion1_1 == '2':
-                    newPrint('Si tienes pensado hacer manualidades, vas a tener que hacerlas de puntillas y sin mirar.')
+                    newPrint('''
+Si tienes pensado hacer manualidades, vas a tener que hacerlas de puntillas y sin mirar.''')
                     if not (contenido(comboGancho, loot) or contenido(comboCuerda, loot) or contenido(comboMagneto, loot)):
-                        newPrint('No tienes suficientes objetos para combinar.')
+                        newPrint('''
+No tienes suficientes objetos para combinar.''')
                     else:
                         if 'book' not in eventos:
-                            newPrint('No se te ocurre cómo combinar las cosas. Tienes una crisis de creatividad.')
+                            newPrint('''
+No se te ocurre cómo combinar las cosas. Tienes una crisis de creatividad.''')
                         else:
                             options = ['0', '1']
-                            newPrint('Construir usando: ')
+                            newPrint('''
+Construir usando: ''')
                             comboInBag = ''
                             for i in range(len(combos)):
                                 if contenido(combos[i], loot):
                                     comboInBag = i
                                     break
-                            newPrint('1) {0}, {1}, {2}, {3}'.format(combos[comboInBag][0], combos[comboInBag][1], combos[comboInBag][2], combos[comboInBag][3]))
+                            newPrint('''
+1) {0}, {1}, {2}, {3}'''.format(combos[comboInBag][0], combos[comboInBag][1], combos[comboInBag][2], combos[comboInBag][3]))
                             opcionM = opcionValida(options)
                             if opcionM == '1':
                                 if comboInBag == 0:
-                                    newPrint('Creas el {0} - Algunas especies lo consideran un Dios. No es para tanto.'.format('GANCHO'))
+                                    newPrint('''
+Creas el {0} - Algunas especies lo consideran un Dios. No es para tanto.'''.format('GANCHO'))
                                     loot.remove('TENEDOR')
                                     loot.remove('PALO DE MADERA')
                                     loot.remove('PEGAMENTO')
                                     getLoot('GANCHO')
                                 elif comboInBag == 1:
-                                    newPrint('Creas la {0} - No es muy estable, pero con tu peso podrá aguantar al menos un ratito.'.format('CUERDA'))
+                                    newPrint('''
+Creas la {0} - No es muy estable, pero con tu peso podrá aguantar al menos un ratito.'''.format('CUERDA'))
                                     loot.remove('ROPA INTERIOR DE LA ABUELA')
                                     loot.remove('CORBATAS')
                                     loot.remove('CALCETINES SUCIOS')
                                     getLoot('CUERDA')
                                 else:
-                                    newPrint('Creas el {0} - Decidido, estudiarás ingeniería.'.format('MAGNETO'))
+                                    newPrint('''
+Creas el {0} - Decidido, estudiarás ingeniería.'''.format('MAGNETO'))
                                     loot.remove('IMÁN')
                                     loot.remove('HILO DENTAL')
                                     loot.remove('ANILLO')
@@ -1534,7 +1550,7 @@ cuando intentas darle un baño. Te asustas y te preparas para la batalla.''')
                                     newPrint('''
 Aprovechas la debilidad de tus adversarios. Estás fuera de ti. Sierra en mano,
 imitando las películas de espadachines, arremetes contra los maniquíes. Estocada
-tras estocada consigues tumbar a los tres y comienzas a mutilarlos. Sin brazos ni
+tras estocada consigues tumbar a los dos y comienzas a mutilarlos. Sin brazos ni
 piernas no pueden hacerte daño, piensas. Cuando has terminado, en un ataque de ira,
 les cortas también la cabeza. Estas criaturas no sangran.
 
@@ -1549,7 +1565,7 @@ De pronto sales del trance. ¿Qué ha pasado?''')
                                 elif 'CINTA' in loot:
                                     newPrint('''
 Aprovechas la debilidad de tus adversarios. Estás fuera de ti. Abres la cinta y
-comienzas a correr en círculos alrededor de las tres figuras. Consigues atarlas
+comienzas a correr en círculos alrededor de las dos figuras. Consigues atarlas
 bien fuerte y las amordazas, no quieres seguir viendo esos asquerosos dientes.
 Aunque les hayas tapado la boca, siguen babeando un líquido verde fosforito,
 viscoso y repugnante. Arremetes a patadas contra sus cabezas hasta que tus pies
@@ -1564,14 +1580,9 @@ Sigues cortando hasta que el trocito más grande es del tamaño de una uña. Mir
 el espectáculo grotesco, no queda nada de lo que antes eran tres figuras horrorosas.
 
 De pronto sales del trance. ¿Qué ha pasado?''')
-                                else:
-                                    newPrint('''
-Aprovechas la debilidad de tus adversarios. Estás fuera de ti. No tienes ningún arma a mano
-para descargar tu ira sobre los maniquíes. Te relajas y te compadeces de ellos.
-
-De pronto sales del trance. ¿Qué ha pasado?''')
                                 newPrint('''
-Entre los restos de los maniquíes encuentras {0}'''.format(palo))
+Entre los restos de los maniquíes encuentras {0} - Debió ser algún día la columna
+vertebral de esos maniquíes masacrados. Qué clase de animal habrá hecho esto...'''.format(palo))
                                 getLoot(palo)
                                 eventos.append('pelea')
                                 eventos.remove('dope')
@@ -1587,8 +1598,8 @@ Tu corazón vuelve a latir a su ritmo normal.''')
                 else:
                     newPrint('''
 Hay pedazos de esa tela negra colgando por toda la pared de la habitación.
-Colgados como murciélagos, esperando a ser cortados. En la esquina izquierda
-yacen los restos de lo que aparentemente fue una batalla encarnecida entre
+Cuelgan como murciélagos, esperando a ser cortados y remachados. En la esquina
+izquierda yacen los restos de lo que aparentemente fue una batalla encarnecida entre
 figuras de madera y látex. ¿Qué habrá pasado?''')
             elif opcion1 == '4':
                 newPrint('''
@@ -1632,8 +1643,10 @@ Pulsa 0 para cancelar.''')
         options = '0 1 2 3 4'.split()
         opcion = opcionValida(options)
         if opcion == '1':
-            newPrint('Está toda llena de brócoli. Ni a los insectos les gusta.')
             newPrint('''
+Está toda llena de brócoli. Ni a los insectos les gusta.''')
+            newPrint('''
+
 1) Abrir los cajones.
 
 2) Usar el microondas.
@@ -1660,10 +1673,10 @@ Encuentras {0} - Está caducada, pero no tiene gusanos.'''.format('MANTEQUILLA')
             elif opcion1 == '2':
                 if 'plomos' in eventos:
                     newPrint('''
-Se ha ido la luz, el microondas no funciona.
-''')
+Se ha ido la luz, el microondas no funciona.''')
                 else:
-                    newPrint('¿Quieres calentar algo en el microondas?')
+                    newPrint('''
+¿Quieres calentar algo en el microondas?''')
                     if promptItem('MANTEQUILLA'):
                         if 'tvon' in eventos:
                             newPrint('''
@@ -1772,7 +1785,7 @@ def pasilloEstrecho():
 1) Recorrer el pasillo.''')
         if 'neverLav' in eventos:
             newPrint('''
-2) Puerta de la lavandería.''')
+2) Puerta espeluznante.''')
             options.append('2')
         newPrint('''
 Pulsa 0 para cancelar.''')
@@ -1845,7 +1858,7 @@ del pasillo.''')
                     break
         elif opcion == '2':
             newPrint('''
-Es la puerta que da a lavandería. Todavía se te eriza la piel de pensar
+Es la puerta que da la lavandería. Todavía se te eriza la piel de pensar
 en el fantasma. Quizá puedas usar algo para tranquilizarte.''')
             if promptItem('CARAMELO'):
                 newPrint('''
@@ -2201,8 +2214,9 @@ Lo abres, intentas leerlo pero no entiendes nada, sólo hay números.''')
                 newPrint('''
 Lo abres, ahora puedes leer perfectamente todo lo que pone. Es un libro de carpintería.
 Explica paso a paso como construir algunas cosas.
-GANCHO, necesitas cortar, metal, madera y algo para pegar. Es un poco lioso pero te ha
-quedado claro. ¿Seguir leyendo?
+
+GANCHO: Necesitas serrar, algo puntiagudo y de metal, algo de madera y algo para pegar.
+Es un poco lioso pero te ha quedado claro. ¿Seguir leyendo?
 
 1) Sí
 
@@ -2211,8 +2225,9 @@ quedado claro. ¿Seguir leyendo?
                 opcion3 = opcionValida(options)
                 if opcion3 == '1':
                     newPrint('''
-MAGNETO, necesitas un imán, un hilo que aguante el peso un objeto donde atarlo y unirlo
-todo. Hay que seguir muchos pasos pero te los has aprendido. ¿Seguir leyendo?
+MAGNETO: Necesitas un imán, un hilo que aguante el peso, un objeto donde atarlo
+y algo para unirlo todo.
+Hay que seguir muchos pasos pero te los has aprendido. ¿Seguir leyendo?
 
 1) Sí
 
@@ -2221,7 +2236,7 @@ todo. Hay que seguir muchos pasos pero te los has aprendido. ¿Seguir leyendo?
                     opcion3 = opcionValida(options)
                     if opcion3 == '1':
                         newPrint('''
-CUERDA, necesitas trozos de tela, no importa que esten sucios y tijeras para darle forma.
+CUERDA: Necesitas trozos de tela, no importa que esten sucios y tijeras para darle forma.
 Es el más sencillo, pero te ha costado memorizarlo.''')
                         if 'book' not in eventos:
                             hora -= 2
