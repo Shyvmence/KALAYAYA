@@ -568,6 +568,8 @@ def getLoot(item):
     global loot
     loot.append(item)
     yaLooteado.append(item)
+    newPrint('''
+Guardas {0} en tus bolsillos.'''.format(item))
 
 def showLoot():
     global loot
@@ -776,8 +778,7 @@ Encuentras {0} - No podía sostenerse mucho más ahí con esto.'''.format(clip))
                     getLoot(clip)
                 else:
                     newPrint('''
-El dibujo era más bonito desde lejos.
-    ''')
+El dibujo de D'Artacán dormido era más bonito cuando aún estaba colgado.''')
             if opcion2 == '2':
                 newPrint('''
 Tienes pendiente: limpiar el baño, la cocina, el salón, el pasillo y el
