@@ -8,6 +8,8 @@ import minigame_furia
 import minigame_fight
 import minigame_cuadros
 
+# probando github
+
 def getHora():
     global hora
     H = int((180-hora)*(2/3))
