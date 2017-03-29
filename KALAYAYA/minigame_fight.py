@@ -802,7 +802,7 @@ def enemyTurn():
             characters[i].win = True
             break
 
-def createCharacters(salaActual, rat=False):
+def createCharacters(salaActual):
     global characters
     characters = []
     characters.append(protagonista(5))
@@ -819,10 +819,7 @@ def createCharacters(salaActual, rat=False):
     elif salaActual == 12:
         characters.append(vecina(5))
     elif salaActual == 14:
-        if not rat:
-            characters.append(fantasma(5))
-        else:
-            characters.append(rata(5))
+        characters.append(rata(5))
 
 
 def checkWin():

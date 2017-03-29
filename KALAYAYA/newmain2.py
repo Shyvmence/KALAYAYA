@@ -21,13 +21,11 @@ def getHora():
 ####completeeeee
 def createWinFile(salida):
     nFile = 'registro.txt'
-    if salida == 'salidaMadre':
-        fichero = open(nFile, 'w')
-        fichero.write('74442037M')
-    else:
-        fichero = open(nFile, 'w')
-        fichero.write('73024447A')
-    fichero.close()
+    with open(nFile, 'w') as f:
+        if salida == 'salidaMadre':
+            f.write('74442037M')
+        else:
+            f.write('73024447A')
 ##    os.chmod(nFile, S_IREAD)
 
 def ending(salida):
@@ -180,14 +178,13 @@ tu cuarto prometiéndote que no saldrás hasta que vuelvas a estar solo.
 
 def previousWin():
     try:
-        fichero = open('completed.txt','r')
-        check = []
-        for i in fichero:
-            if i == '74442037M':
-                check.append(1)
-            if i == '73024447A':
-                check.append(2)        
-        fichero.close()
+        with open('completed.txt','r') as f:
+            check = []
+            for i in f:
+                if i == '74442037M\n':
+                    check.append(1)
+                elif i == '73024447A':
+                    check.append(2)
         return check
     except:
         return []
@@ -228,35 +225,66 @@ def new_load():
         return False
 
 def cargar():
+    global MALOS
+    global NSALAS
+    global LOOT
+    global VISITA
+    global EVENTOS
     try:
-        fichero = open('save.txt', 'r')
+        encSave(-1, 'save.txt', 'savecopia.txt')
         tipos = ['MALO', 'COORDENADAS', 'LOOT', 'YAVISITADO', 'EVENTOS', 'YALOOTEADO', 'HORA']
+        VARS = [MALOS, NSALAS, LOOT, VISITA, EVENTOS]
         variables = []
         var = []
         final = False
-        for i in fichero:
-            if i != '\n':
-                if i[:len(i)-1] in tipos:
-                    if tipos.index(i[:len(i)-1]) != 0:
-                        variables.append(var)
-                        var = []
-                        if tipos.index(i[:len(i)-1]) == len(tipos)-1:
-                            final = True
-                else:
-                    if i[:len(i)-1].isdigit():
-                        var.append(int(i))
+        with open('savecopia.txt', 'r') as f:
+            for i in f:
+                if i != '\n':
+                    if i[:len(i)-1] in tipos:
+                        if tipos.index(i[:len(i)-1]) != 0:
+                            variables.append(var)
+                            var = []
+                            if tipos.index(i[:len(i)-1]) == len(tipos)-1:
+                                final = True
                     else:
-                        var.append(i[:len(i)-1])
+                        if i[:len(i)-1].isdigit():
+                            var.append(int(i[:len(i)-1]))
+                        else:
+                            var.append(i[:len(i)-1])
+                else:
+                    if final:
+                        variables.append(var)
+        os.remove('savecopia.txt')
+        corruptSave = False
+        for i in range(len(VARS)+2):
+            if i <= len(VARS)-1:
+                if i == 1:
+                    if variables[i] not in VARS[i]:
+                        corruptSave = True
+                        break
+                else:
+                    if not contenido(variables[i],VARS[i]):
+                        corruptSave = True
+                        break
+            elif i == len(VARS):
+                if not contenido(variables[i], LOOT):
+                    corruptSave = True
+                    break
             else:
-                if final:
-                    variables.append(var)
-        fichero.close()
-        return variables
+                if variables[i][0] < 0 or variables[i][0] > 180:
+                    corruptSave = True
+                    break
+        if corruptSave:
+            print('''
+El archivo de guardado se ha corrompido. Creando partida nueva.''')
+            del variables
+            return None
+        else:
+            return variables
     except:
         print('''
-No existe partida guardada. Creando partida nueva.''')
+No existe partida guardada o el archivo de guardado se ha corrompido. Creando partida nueva.''')
         return None
-        
 
 def save():
     global malo
@@ -269,24 +297,51 @@ def save():
     tipos = ['MALO', 'COORDENADAS', 'LOOT', 'YAVISITADO', 'EVENTOS', 'YALOOTEADO', 'HORA']
     variables = [malo, sala, loot, yaVisitado, eventos, yaLooteado, hora]
     try:
-        fichero = open('save.txt', 'w')
-        j = 0
-        for i in variables:
-            fichero.write(tipos[j] + '\n')
-            if isinstance(i, list):
-                for k in i:
-                    fichero.write(str(k) + '\n')
-            elif isinstance(i, int):
-                fichero.write(str(i) + '\n')
-            else:
-                fichero.write(i + '\n')
-            fichero.write('\n')
-            j += 1
-        fichero.close()
-        print('Partida guardada correctamente.')
+        with open('save.txt', 'w') as f:
+            j = 0
+            for i in variables:
+                f.write(tipos[j] + '\n')
+                if isinstance(i, list):
+                    for k in i:
+                        f.write(str(k) + '\n')
+                elif isinstance(i, int):
+                    f.write(str(i) + '\n')
+                else:
+                    f.write(i + '\n')
+                f.write('\n')
+                j += 1
+        encSave()
+        print('''
+Partida guardada correctamente.''')
     except:
-        print('Error al guardar')
-    
+        print('''
+Error al guardar.''')
+
+def encSave(enc=1, fEntrada='save.txt', fSalida = 'save.txt'):
+    key = 16*enc
+    with open(fEntrada, 'r') as f:
+        a = f.readlines()
+    with open(fSalida, 'w') as f:
+        for linea in a:
+            for car in range(len(linea)):
+                if linea[car].isalpha() and car != len(linea)-1:
+                    num = ord(linea[car])
+                    if ord('a')<=num<=ord('z') or ord('A')<=num<=ord('Z'):
+                        num += key
+
+                        if linea[car].isupper():
+                            if num > ord('Z'):
+                                num -= 26
+                            elif num < ord('A'):
+                                num += 26
+                        elif linea[car].islower():
+                            if num > ord('z'):
+                                num -= 26
+                            elif num < ord('a'):
+                                num += 26
+                    f.write(chr(num))
+                else:
+                    f.write(linea[car])
 
 # GLOBAL VARIABLES (SALA, SALAACTUAL, LOOT, YALOOTEADO, YAVISITADO, EVENTOS, YALOOTEADO, HORA)
 #inputs sobre 70 caracteres de largo, me lo paso por los cojones
@@ -713,11 +768,11 @@ def cuarto():
     while True:
         gameOver()
         newPrint('''
-1) Caminar directamente hacia la puerta; no hay tiempo que perder...
+1) Caminar directamente hacia la puerta; no hay tiempo que perder.
    
-2) Examinar las paredes, puede que encuentres algo útil...
+2) Examinar las paredes, puede que encuentres algo útil.
 
-3) Buscar en los cajones. Va a ser complicado, están hasta los topes...
+3) Buscar en los cajones. Va a ser complicado, están hasta los topes.
 
 Pulsa 0 para cancelar.''')
         options = '0 1 2 3'.split()
@@ -1228,6 +1283,13 @@ furioso y poder pagarlo con el cubo. Como hace el abuelo con D'Artacán.''')
                 newPrint('''
 Antes Puar podía caminar por encima de las cuerdas. Ahora posiblemente se
 partirían.''')
+                if 'winRata' in eventos:
+                    if 'LIMPIACRISTALES' not in yaLooteado:
+                        newPrint('''
+Debajo de las cuerdas hay productos de limpieza. Han debido caer de algún sitio.
+Encuentras LIMPIACRISTALES - Tiene un olor muy agradable.''')
+                        getLoot('LIMPIACRISTALES')
+####                    
         elif opcion == '2':
             if 'winRata' in eventos:
                 if ropa not in yaLooteado:
@@ -1239,67 +1301,51 @@ que fuese tan grande.'''.format(ropa))
                     newPrint('''
 No crees que el resto de ropa vaya a serte útil.''')
             else:
-                if 'winRata2' not in eventos:
-                    newPrint('''
+                newPrint('''
 De entre las prendas de ropa emerge un calcetín que fantasmagóricamente
 se mueve, de forma torpe rueda montaña abajo y se coloca en posición de
 defensa. Parece que no está dispuesto a dejarte tocar a sus compañeros
 sin arriesgar su vida primero.''')
-                    newPrint("")
-                    newPrint('''
+                newPrint('''
 1) Huir.
 
 2) Plantar cara al fantasma.
 
 Pulsa 0 para cancelar.''')
-                    options = '0 1 2'.split()
-                    opcion2 = opcionValida(options)
-                    if opcion2 == '1':
-                        newPrint('''
+                options = '0 1 2'.split()
+                opcion2 = opcionValida(options)
+                if opcion2 == '1':
+                    newPrint('''
 Das media vuelta y sales despavorido jurándote a ti mismo que no volverás
 a pisar la lavandería nunca más.''')
-                        eventos.append('neverLav')
-                        movimiento(True)
-                        options = opcionesMovValidas()
-                        options.remove('0')
-                        desplazar = opcionValida(options)
-                        movSala(desplazar)
-                        salaActual = getNSala()
-                        newPrint(getName())
-                        newPrint("")
-                        if getName() not in yaVisitado:
-                            newPrint(getDescription())
-                            yaVisitado.append(getName())
-                        break
-                    elif opcion2 == '2':
-                        newPrint('''
+                    eventos.append('neverLav')
+                    movimiento(True)
+                    options = opcionesMovValidas()
+                    options.remove('0')
+                    desplazar = opcionValida(options)
+                    movSala(desplazar)
+                    salaActual = getNSala()
+                    newPrint(getName())
+                    newPrint("")
+                    if getName() not in yaVisitado:
+                        newPrint(getDescription())
+                        yaVisitado.append(getName())
+                    break
+                elif opcion2 == '2':
+                    newPrint('''
 Desde siempre has creído en los fantasmas; hoy es el día de enfrentarse a uno
 de ellos. Cuando cuentes esta historia en el cole puedes obviar la parte de
 que es minúsculo.''')
-                    else:
-                        break
                 else:
+                    break
+                if minigame_fight.game(salaActual):
                     newPrint('''
-De algún modo te lo esperabas. Sabes perfectamente que dentro de ese calcetín
-está esa rata tan valiente que conociste en el baño de los abuelos. Sabías
-que volveríais a medir vuestras fuerzas. Siempre has tenido esa capacidad
-de ver a lo que estás destinado. Notas en el ambiente que será una batalla dura,
-que pondrá en riesgo la percepción que tienes de ti mismo.
-Te remangas y te preparas para la batalla.''')
-                if minigame_fight.game(salaActual, 'winRata2' in eventos):
-                    if 'winRata2' not in eventos:
-                        newPrint('''
 El fantasma cae rendido. Poco a poco, de dentro del calcetín emerge un pequeño
-ratoncito. Te lanza una mirada de odio y huye hacia un hueco en la pared. No sabes
-por qué, pero crees que volverás a ver a ese valiente ratoncito que se alzó contra
-un enemigo al que no podía vencer, por defender a los suyos.
+ratoncito. Te lanza una mirada de odio y huye por encima de las cuerdas del
+tendedero y escuchas algo caer.
+No sabes por qué, pero crees que volverás a ver a ese valiente ratoncito
+que se alzó contra un enemigo al que no podía vencer, por defender a los suyos.
 Esto te llena de determinación.''')
-                    else:
-                        newPrint('''
-La rata cae rendida. Te lanza una mirada de aprobación. Acepta que tienes el derecho
-de rebuscar entre la ropa sucia que tan fieramente ha defendido. Por último se gira
-y huye hacia un hueco en la pared.
-''')
                     eventos.append('winRata')
                     hora -= 3
                     break
@@ -1327,40 +1373,25 @@ def taller():
     herramientas = 'SIERRA MARTILLO CINTA TIJERAS'.split()
     while True:
         gameOver()
+        options = '0 1 2 3 4'.split()
+        newPrint('''
+Está todo lleno de cosas interesantes. La distribución se divide en cuatro
+secciones:
+
+1) Carpintería
+
+2) Bañera con líquidos
+
+3) Látex negro
+
+4) Punto''')
         if 'clipUsed' not in eventos:
             newPrint('''
-Está todo lleno de cosas interesantes. La distribución se divide en cuatro
-secciones:
-
-1) Carpintería
-
-2) Bañera con líquidos
-
-3) Látex negro
-
-4) Punto
-
-5) Puerta cerrada
-
+5) Puerta cerrada''')
+            options.append('5')
+        newPrint('''
 Pulsa 0 para cancelar.''')
-            options = '0 1 2 3 4 5'.split()
-            opcion1 = opcionValida(options)
-        else:
-            newPrint('''
-Está todo lleno de cosas interesantes. La distribución se divide en cuatro
-secciones:
-
-1) Carpintería
-
-2) Bañera con líquidos
-
-3) Látex negro
-
-4) Punto
-
-Pulsa 0 para cancelar.''')
-            options = '0 1 2 3 4'.split()
-            opcion1 = opcionValida(options)
+        opcion1 = opcionValida(options)
         if opcion1 == '1':
             newPrint('''
 La pared está llena de muestras de madera y clavos de todas las medidas.
@@ -1595,6 +1626,25 @@ figuras de madera y látex. ¿Qué habrá pasado?''')
 Hay un rinconcito secreto con todos los utensilios necesarios para hacer punto.
 La lana rosa es la que más abunda. Parece que los tapetes de punto que cubren
 todos los muebles de la casa no son obra de la abuela.''')
+            if 'cajaBurneada' not in eventos:
+                newPrint('''
+Encima de una mesita al fondo de la habitación hay una caja hecha de lana.
+Es una lana muy fuerte, por más que lo intentas no puedes deshacer la caja.
+Tiene una cerradura de lana, quizá puedas utilizar algo...''')
+                if promptItem('CAJA DE CERILLAS'):
+                    newPrint('''
+Prendes fuego a la caja de lana. Las llamas la consumen en pocos segundos.
+Dentro encuentras las gafas del abuelo.
+
+Te colocas las gafas sobre la nariz. Ves las cosas muy distintas ahora.''')
+                    eventos.append('cajaBurneada')
+                    eventos.append('gafas')
+            else:
+                newPrint('''
+Al fondo, encima de la mesita quedan los restos incinerados de la caja.''')
+                
+            
+            
         elif opcion1 == '5':
             newPrint('''
 Hay una puerta cerrada en la habitación. Quizá puedas utilizar algo para abrirla...''')
@@ -2133,23 +2183,12 @@ Pulsa 0 para cancelar.''')
                 newPrint('''
 Entras y caminas hacia el fondo apartando abrigos de piel que pesan el triple
 que tú. Al fondo tocas algo frío con los dedos. La imagen de un campo lleno de
-nieve viene a tu mente. Cuando te acercas para ver lo que es, descubres un par
-de cajas apiladas llenas de las botellas que viste en el taller del abuelo.
-Habías tocado una de las que estaba fuera de las cajas.''')
-                if 'gafas' not in eventos:
+nieve viene a tu mente. Cuando te acercas para ver lo que es, descubres una caja
+metálica llena de tabaco, papelillos, pipas...''')
+                if 'CAJA DE CERILLAS' not in yaLooteado:
                     newPrint('''
-Sobre las cajas, al lado de las botellas ves las gafas del abuelo. Se las ha
-debido de dejar aquí olvidadas.
-
-1) Ponerte las gafas.
-
-Pulsa 0 para cancelar.''')
-                    options = '0 1'.split()
-                    opcion1_1 = opcionValida(options)
-                    if opcion1_1 == '1':
-                        newPrint('''
-Te colocas las gafas sobre la nariz. Ves las cosas muy distintas ahora.''')
-                        eventos.append('gafas')
+Encuentras CAJA DE CERILLAS - Para los entendidos deja mejor sabor.''')
+                    getLoot('CAJA DE CERILLAS')
             elif opcion1 == '2':
                 newPrint('''
 Dentro de los cajones hay: calzoncillos, calcetines, camisetas interiores de algodón...''')
@@ -2335,31 +2374,27 @@ def habitacion():
 Pulsa 0 para cancelar.''')
         opcion = opcionValida(options)
         if opcion == '1':
-            if 'gafas' not in eventos:
+            if 'espejoLimpio' not in eventos:
                 newPrint('''
-Tienes cara de cansado. Es normal, siendo un maestro con los números como lo eres.
-Ese último 0 se llama CANCELBRAH. No esperábamos que resolvieses el puzzle con
-dígitos, pero tanto calcular hace que tu vista sufra. Ve a por unas gafas, ¿quieres?''')
+Está muy sucio. No puedes verte bien. Quizá puedas utilizar algo...''')
+                if promptItem('LIMPIACRISTALES'):
+                    newPrint('''
+Empiezas a limpiar el cristal. Baila un poco, no está bien sujeto.
+De pronto cae al suelo. La abuela se enfadará mucho en ver este desastre.
+Detrás del espejo hay algo.''')
+                    eventos.append('espejoLimpio')
             else:
-                newPrint('''
-Qué raro te ves con las gafas del abuelo. Un momento, ves algo a través del espejo.
-
-1) Apartar el espejo.
-
-Pulsa 0 para cancelar.''')
-                options = '0 1'.split()
-                opcion1 = opcionValida(options)
-                if opcion1 == '1':
-                    if 'openCaja' not in eventos:
-                        newPrint('''
-Es una caja fuerte. Está cerrada, quizá puedas utilizar algo para abrirla...''')
-                        if promptItem('LLAVE CAJA FUERTE'):
-                            newPrint("")
-                            newPrint('La caja se ha abierto.')
-                            eventos.append('openCaja')
-                    else:
+                if 'openCaja' not in eventos:
+                    newPrint('''
+Detrás del espejo hay una caja fuerte.
+Está cerrada, quizá puedas utilizar algo para abrirla...''')
+                    if promptItem('LLAVE CAJA FUERTE'):
                         newPrint('''
 La caja se ha abierto.''')
+                        eventos.append('openCaja')
+                else:
+                    newPrint('''
+La caja está abierta.''')
         elif opcion == '2':
             if 'LLAVE CAJA FUERTE' not in yaLooteado:
                 newPrint('''
@@ -2415,8 +2450,7 @@ def wc():
         newPrint('''
 1) Lavarte las manos.
 
-2) Apartar la cortina.
-''')
+2) Apartar la cortina.''')
         if 'winRata2' in eventos:
             newPrint('''
 3) Examinar la bañera.
@@ -2429,57 +2463,35 @@ Pulsa 0 para cancelar.''')
         opcion = opcionValida(options)
         if opcion == '1':
             newPrint('''
-La abuela siempre dice que todo se cura con agua y jabón.
-''')
+La abuela siempre dice que todo se cura con agua y jabón.''')
             if 'herido' in eventos:
                 newPrint('''
-Pica un poco, pero todo lo que pica cura.
-''')
+Pica un poco, pero todo lo que pica cura.''')
                 eventos.remove('herido')
                 hora -= 2
         elif opcion == '2':
             if 'winRata2' not in eventos:
                 if 'fightRata2' not in eventos:
-                    if 'winRata' in eventos:
-                        newPrint('''
+                    newPrint('''
 Avanzas hacia la cortina, pero de pronto aparece aquella rata valiente
 que conociste en la lavandería. En su rostro no hay malicia, no hay venganza,
 solo honor. De algún modo te lo esperabas, sabías que volveríais a medir vuestras
 fuerzas. Siempre has tenido esa capacidad de ver a lo que estás destinado.
 Notas en el ambiente que será una batalla dura, que pondrá en riesgo la percepción
 que tienes de ti mismo.
-Te remangas y te preparas para la batalla.
-''')
-                    else:
-                        newPrint('''
-Avanzas hacia la cortina, pero de pronto aparece una rata. En su mirada puedes
-leer que no te piensa dejar pasar tan fácilmente.
-Te remangas y te preparas para la batalla.
-''')
+Te remangas y te preparas para la batalla.''')
                     eventos.append('fightRata2')         
                 else:
-                    if 'winRata' in eventos:
-                        newPrint('''
-Ahí está la rata mirandote. En su rostro no hay malicia, no hay venganza, solo honor.
+                    newPrint('''
+Ahí está la rata mirándote. En su rostro no hay malicia, no hay venganza, solo honor.
 Notas en el ambiente que será una batalla dura, que pondrá en riesgo la percepción
 que tienes de ti mismo. 
-Te remangas y te preparas para la batalla.
-''')
+Te remangas y te preparas para la batalla.''')
                 if minigame_fight.game(salaActual):
-                    if 'winRata' in eventos:
-                        newPrint('''
-La rata cae rendida te lanza una mirada de aprobación. Acepta que tienes el derecho
+                    newPrint('''
+La rata cae rendida, te lanza una mirada de aprobación. Acepta que tienes el derecho
 a pasar hacia la cortina que tan fieramente ha defendido. 
-Por último se gira y huye hacia un hueco en la pared.
-''')
-                    else:
-                        newPrint('''
-Te lanza una mirada de odio y huye hacia un hueco en la pared. No sabes por qué, 
-pero crees que volverás a ver a esa valiente ratita que se alzó contra un enemigo
-al que no podía vencer, por defender lo que era suyo.  
-
-Esto te llena de determinación. 
-''')
+Por último se gira y huye hacia un hueco en la pared.''')
                     newPrint('''
 Apartas la cortina y descubres que el baño sigue un buen trecho tras ella.
 Hay una bañera llena de un líquido oscuro, entre rojo y verde.
@@ -2545,22 +2557,39 @@ print('''
 ##introduction()
 ##newload()
 ##if new:
+MALOS = ['abuelo', 'abuela', 'perro']
+NSALAS = [[1,1], [1,5], [3,1], [3,5], [3,9], [5,1], [5,5], [5,9], [5,13], [7,1], [7,5], [7,13], [9,5], [9,9], [9,13], [11,9]]
+LOOT = ['PAR DE CALCETINES MALOLIENTES', 'CLIP ROTO', 'IMÁN', 'HILO DENTAL',
+        'LATA DE PATÉ DE GATO', 'LLAVES DE LA CASA', 'TROZO DE CRISTAL',
+        'ROPA INTERIOR SUCIA DE LA ABUELA', 'PALO DE MADERA', 'GANCHO',
+        'CUERDA', 'MAGNETO', 'SIERRA', 'MARTILLO', 'CINTA', 'TIJERAS',
+        'MANTEQUILLA', 'MANTEQUILLA LÍQUIDA', 'LLAVE DE LA CUBERTERÍA',
+        'TENEDOR', 'CARAMELO', 'PEGAMENTO', 'ANILLO', 'CORBATA', 'LLAVE DE LA HABITACIÓN',
+        'LLAVE CAJA FUERTE', 'MASCARILLA', 'CAJA DE CERILLAS', 'LIMPIACRISTALES']
+VISITA = ['TU CUARTO', 'TU BAÑO', 'TRASTERO', 'SALÓN',
+          'LAVANDERÍA', 'TALLER DEL ABUELO', 'COCINA', 'PASILLO ESTRECHO',
+          'PASILLO CORTO', 'VESTIDOR ABUELOS', 'ESCALERA',
+          'RECIBIDOR', 'HABITACIÓN ABUELOS', 'BAÑO ABUELOS']
+EVENTOS = ['pelusa', 'caja', 'tapón', 'herido', 'bolsa', 'upSilla', 'brokeSilla', 'encuentra',
+           'calcetines', 'cuboSuelo', 'try', 'furia', 'neverLav', 'winRata', 'dope', 'pelea',
+           'clipUsed', 'plomos', 'cajonOpen', 'openArmario', 'tvon', 'pateDado', 'winGato',
+           'madera', 'azul', 'blanco', 'metal', 'pista', 'keyUsed', 'gafas', 'pass', 'book',
+           'exitOpen', 'openCaja', 'mascarillaPuesta', 'winRata2', 'fightRata2', 'windowOpen',
+           'finMadre', 'cajaBurneada', 'finAbuelos', 'campanadas', 'espejoLimpio']
 
-if new_load():
-    malo = ''
-    showIntroduction()
-    sala = [1,1]
-    salaActual = getNSala()
-    loot = []
-    yaVisitado = []
-    eventos = []
-    yaLooteado = []
-    hora = 180
+malo = ''
+sala = [1,1]
+salaActual = getNSala()
+loot = []
+yaVisitado = []
+eventos = []
+yaLooteado = []
+hora = 180
     
-else:
+if not new_load():
     variables = cargar()
     if variables != None:
-        malo = variables[0]
+        malo = variables[0][0]
         sala = variables[1]
         salaActual = getNSala()
         loot = variables[2]
@@ -2568,16 +2597,15 @@ else:
         eventos = variables[4]
         yaLooteado = variables[5]
         hora = int(variables[6][0])
+        del variables
+        introduccion = False
     else:
-        malo = ''
-        showIntroduction()
-        sala = [1,1]
-        salaActual = getNSala()
-        loot = []
-        yaVisitado = []
-        eventos = []
-        yaLooteado = []
-        hora = 180
+        introduccion = True
+else:
+    introduccion = True
+
+if introduccion:
+    showIntroduction()
 
 previously = previousWin()
 if 1 in previously:
@@ -2585,10 +2613,6 @@ if 1 in previously:
 elif 2 in previously:
     eventos.append('finAbuelos')
 
-MALOS = ['abuelo', 'abuela', 'perro']
-NSALAS = [[1,1], [1,5], [3,1], [3,5], [3,9], [5,1], [5,5], [5,9], [5,13], [7,1], [7,5], [7,13], [9,5], [9,9], [9,13], [11,9]]
-LOOT = []
-EVENTOS = []
 
     
 while True:
