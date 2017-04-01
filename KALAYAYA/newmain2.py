@@ -2446,6 +2446,7 @@ def wc():
     global salaActual
     global yaLooteado
     global loot
+    global hora
     while True:
         gameOver()
         options = '0 1 2'.split()
