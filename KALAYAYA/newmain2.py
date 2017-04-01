@@ -768,7 +768,7 @@ def cuarto():
     while True:
         gameOver()
         newPrint('''
-1) Caminar directamente hacia la puerta; no hay tiempo que perder.
+1) Observar la alfombra.
    
 2) Examinar las paredes, puede que encuentres algo útil.
 
@@ -781,9 +781,9 @@ Pulsa 0 para cancelar.''')
             break
         if opcion == '1':
             newPrint('''
-Pisas una de tus mega-construcciones Lego, duele tanto que caes al suelo
-y te retuerces durante un rato aguantando el llanto. Desde el suelo
-la habitación parece mucho más grande.''')
+Al acercarte, pisas una de tus mega-construcciones Lego, duele tanto que
+caes al suelo y te retuerces durante un rato aguantando el llanto.
+Desde el suelo la habitación parece mucho más grande.''')
             newPrint('''
 1) Alargar la mano y buscar bajo la cama.
 
@@ -794,10 +794,12 @@ Pulsa 0 para cancelar.''')
             opcion1 = opcionValida(options)
             if opcion1 == '1':
                 if calcetines not in yaLooteado:
-                    newPrint('Encuentras {0} - Llevaban ahí abajo mucho tiempo.'.format(calcetines))
+                    newPrint('''
+Encuentras {0} - Llevaban ahí abajo mucho tiempo.'''.format(calcetines))
                     getLoot(calcetines)
                 else:
-                    newPrint('Solo encuentras polvo.')
+                    newPrint('''
+Solo encuentras polvo.''')
             if opcion1 == '2':
                 newPrint('''
 La construcción es colosal, las columnas góticas y los arcos ojivales
@@ -884,23 +886,22 @@ Pulsa 0 para cancelar.
         opcion = opcionValida(options)
         if opcion == '1':
             if evPosibles[0] not in eventos:
-                newPrint('No puedes abrir las puertas, hay algo bloqueándolas.')
+                newPrint('''
+No puedes abrir las puertas, hay algo bloqueándolas.''')
             else:
                 if hilo not in yaLooteado:
-                    newPrint("")
                     newPrint('''
 El cajón está casi vacío. Encuentras {0} - Normalmente esas
 cosas están en el baño de la abuela, pero lo cogiste para jugar
-y nadie lo ha echado en falta.
-'''.format(hilo))
+y nadie lo ha echado en falta.'''.format(hilo))
                     getLoot(hilo)
                 else:
-                    newPrint('Ya solo queda polvo en el cajón.')
+                    newPrint('''
+Ya solo queda polvo en el cajón.''')
         elif opcion == '2':
             newPrint('''
 La caja más grande y pesada está frente al lavabo, es la de los cómics
 de superhéroes.''')
-            newPrint("")
             newPrint('''
 1) Apartar la caja.
 
@@ -928,7 +929,6 @@ La bañera está llena de agua sucia y juguetes.''')
             else:
                 newPrint('''
 En la bañera solo quedan los juguetes.''')
-            newPrint("")
             newPrint('''
 1) Darse un baño.
 
@@ -947,7 +947,8 @@ jugar un rato con los patitos.''')
 Ya no hay agua en la bañera.''')
             if opcion3 == '2':
                 if evPosibles[1] not in eventos:
-                    newPrint('La tubería se traga todo el agua.')
+                    newPrint('''
+La tubería se traga todo el agua.''')
                     eventos.append(evPosibles[1])
                 else:
                     newPrint('''
@@ -1104,7 +1105,7 @@ Ya estás subido a la silla.''')
                 else:
                     newPrint('''
 Subes a la silla, no es muy estable...''')
-                eventos.append('upSilla')
+                    eventos.append('upSilla')
             else:
                 newPrint('''
 La abuela se enfadaría mucho si me viese poner los zapatos encima de
@@ -1187,110 +1188,109 @@ def lavanderia():
     global hora
     ropa = 'ROPA INTERIOR SUCIA DE LA ABUELA'
     evPosibles = 'try cuboSuelo furia neverLav winRata'.split()
+    newPrint('''
+En la habitación no hay nada más a parte de la lavadora, el tendedero y un cubo
+enorme y pesado.''')
+    if 'cuboSuelo' in eventos:
+        newPrint('''
+Ahora está todo hecho un desastre, toda la ropa está tirada por el suelo.''')
     while True:
         gameOver()
-        if 'cuboSuelo' not in eventos:
-            newPrint('''
-1) Examinar la habitación.
-
-Pulsa 0 para cancelar.''')
-            options = '0 1'.split()
-        else:
-            newPrint('''
-1) Examinar la habitación.
-
-2) Buscar entre la ropa sucia.
-
-Pulsa 0 para cancelar.''')
-            options = '0 1 2'.split()
-        opcion = opcionValida(options)
-        if opcion == '1':
-            if 'cuboSuelo' not in eventos:
-                newPrint('''
-No hay nada más aparte de la lavadora, el tendedero y un cubo enorme y pesado.''')
-            else:
-                newPrint('''
-Ahora está todo hecho un desastre, toda la ropa está tirada por el suelo.''')
-            newPrint('''
+        options = '0 1 2 3'.split()
+        newPrint('''
 1) Buscar en la lavadora.
 
 2) Buscar en el cubo.
 
-3) Buscar en el tendedero.
-
+3) Buscar en el tendedero.''')
+        if 'cuboSuelo' in eventos:
+            newPrint('''
+4) Buscar entre la ropa sucia.''')
+            options.append('4')
+        newPrint('''
 Pulsa 0 para cancelar.''')
-            options = '0 1 2 3'.split()
-            opcion1 = opcionValida(options)
-            if opcion1 == '1':
-                newPrint('''
+        opcion1 = opcionValida(options)
+##        if opcion == '1':
+##            if 'cuboSuelo' not in eventos:
+##                newPrint('''
+##No hay nada más aparte de la lavadora, el tendedero y un cubo enorme y pesado.''')
+##            else:
+##                newPrint('''
+##Ahora está todo hecho un desastre, toda la ropa está tirada por el suelo.''')
+
+##Pulsa 0 para cancelar.''')
+##            options = '0 1 2 3'.split()
+##            opcion1 = opcionValida(options)
+        if opcion1 == '1':
+            newPrint('''
 Está vacía, no encuentras nada.''')
-            elif opcion1 == '2':
-                if 'cuboSuelo' in eventos:
-                    newPrint('''
+        elif opcion1 == '2':
+            if 'cuboSuelo' in eventos:
+                newPrint('''
 Ahora ya no es tan imponente, todas sus entrañas están esparcidas por el suelo.''')
-                else:
-                    newPrint('''
+            else:
+                newPrint('''
 Es demasiado alto, no alcanzas a mirar qué hay dentro.''')
-                    if 'try' in eventos:
-                        newPrint('''
+                if 'try' in eventos:
+                    newPrint('''
 1) Tumbarlo.
 
 2) Coger fuerzas.
 
 Pulsa 0 para cancelar.''')
-                        options = '0 1 2'.split()
-                    else:
-                        newPrint('''
+                    options = '0 1 2'.split()
+                else:
+                    newPrint('''
 1) Tumbarlo.
 
 Pulsa 0 para cancelar.''')
-                        options = '0 1'.split()
-                    opcion1_1 = opcionValida(options)
-                    if opcion1_1 == '1':
-                        if 'cuboSuelo' in eventos:
-                            newPrint('''
+                    options = '0 1'.split()
+                opcion1_1 = opcionValida(options)
+                if opcion1_1 == '1':
+                    if 'cuboSuelo' in eventos:
+                        newPrint('''
 Ya has conseguido tirar el cubo, tanto esfuerzo... Seguro que mañana
 tienes agujetas.''')
-                        elif 'furia' in eventos:
-                            newPrint('''
+                    elif 'furia' in eventos:
+                        newPrint('''
 Descargas toda tu furia en un empujón colosal. El cubo no puede soportar
 tanto empeño y se desploma, vertiendo todo su contenido por el suelo.
 Quizá deberias aprender de esto y usar esta nueva habilidad con Miguel
 "La Roca", debe pesar más o menos lo mismo. Así aprenderá a llevar su propio
 bocadillo al cole.''')
-                            eventos.append('cuboSuelo')
-                        else:
-                            newPrint('''
+                        eventos.append('cuboSuelo')
+                    else:
+                        newPrint('''
 Pesa demasiado, no puedes con él.''')
-                            eventos.append('try')
-                    elif opcion1_1 == '2':
-                        if 'cuboSuelo' in eventos:
-                            newPrint('''
+                        eventos.append('try')
+                elif opcion1_1 == '2':
+                    if 'cuboSuelo' in eventos:
+                        newPrint('''
 No crees que haga falta sentir más odio. De lo contrario, te saldrán bultos
 en el cuello como a la abuela.''')
-                        elif 'furia' in eventos:
-                            newPrint('''
+                    elif 'furia' in eventos:
+                        newPrint('''
 Estás furioso, deberías aprovechar estos sentimientos para algo útil.''')
-                        else:
-                            newPrint('''
+                    else:
+                        newPrint('''
 Tratas de encontrar rabia en tu interior, un sentimiento que te haga estar
 furioso y poder pagarlo con el cubo. Como hace el abuelo con D'Artacán.''')
-                            newPrint("")
-                            if minigame_furia.game():
-                                eventos.append('furia')
-                                hora -= 3
-            elif opcion1 == '3':
-                newPrint('''
+                        newPrint("")
+                        if minigame_furia.game():
+                            eventos.append('furia')
+                            hora -= 3
+        elif opcion1 == '3':
+            newPrint('''
 Antes Puar podía caminar por encima de las cuerdas. Ahora posiblemente se
 partirían.''')
-                if 'winRata' in eventos:
-                    if 'LIMPIACRISTALES' not in yaLooteado:
-                        newPrint('''
+            if 'winRata' in eventos:
+                if 'LIMPIACRISTALES' not in yaLooteado:
+                    newPrint('''
 Debajo de las cuerdas hay productos de limpieza. Han debido caer de algún sitio.
 Encuentras LIMPIACRISTALES - Tiene un olor muy agradable.''')
-                        getLoot('LIMPIACRISTALES')
+                    getLoot('LIMPIACRISTALES')
 ####                    
-        elif opcion == '2':
+        elif opcion1 == '4':
             if 'winRata' in eventos:
                 if ropa not in yaLooteado:
                     newPrint('''
@@ -1342,7 +1342,7 @@ que es minúsculo.''')
                     newPrint('''
 El fantasma cae rendido. Poco a poco, de dentro del calcetín emerge un pequeño
 ratoncito. Te lanza una mirada de odio y huye por encima de las cuerdas del
-tendedero y escuchas algo caer.
+tendedero. Escuchas algo chocar contra el suelo.        
 No sabes por qué, pero crees que volverás a ver a ese valiente ratoncito
 que se alzó contra un enemigo al que no podía vencer, por defender a los suyos.
 Esto te llena de determinación.''')
@@ -1479,25 +1479,27 @@ Creas el {0} - Decidido, estudiarás ingeniería.'''.format('MAGNETO'))
 Hay cientos de botellas apiladas en la esquina derecha de la habitación.
 Llevan una etiqueta donde pone KALAYAYA bajo un dibujo de la cara del abuelo.
 La bañera está hasta los topes del líquido amarillento que rellena las botellas.
-Huele rancio y asqueroso, como a fruta podrida.
+Huele rancio y asqueroso, como a fruta podrida.''')
+            if 'dope' not in eventos:
+                newPrint('''
 
 1) Probar una de las botellas.
 
 Pulsa 0 para cancelar.''')
-            options = '0 1'.split()
-            opcion2 = opcionValida(options)
-            if opcion2 == '1':
-                newPrint('''
+                options = '0 1'.split()
+                opcion2 = opcionValida(options)
+                if opcion2 == '1':
+                    newPrint('''
 Intentas descorchar la botella, pero está muy dura. No consigues nada.
 Quizá puedas utilizar algo para abrirla.''')
-                if promptItem('MARTILLO'):
-                    newPrint('''
+                    if promptItem('MARTILLO'):
+                        newPrint('''
 Rompes el cuello de la botella con un golpe seco del martillo. Ten cuidado,
 no te cortes. Le das un largo trago y a continuación echas todo el contenido
 de tu estómago. Después de un par de minutos vomitando, empiezas a verlo todo
 distinto. Los colores y las formas se mezclan entre ellos, los olores se
 convierten en sonidos y puedes saborear todo lo que llega a tus oídos.''')
-                    eventos.append('dope')
+                        eventos.append('dope')
         elif opcion1 == '3':
             if 'pelea' not in eventos:
                 newPrint('''
@@ -2496,6 +2498,7 @@ Por último se gira y huye hacia un hueco en la pared.''')
 Apartas la cortina y descubres que el baño sigue un buen trecho tras ella.
 Hay una bañera llena de un líquido oscuro, entre rojo y verde.
 Tras ella hay una ventana entreabierta. Tapada con papel de periódico.''')
+                    eventos.append('winRata2')
                     hora -= 3
                     break
                 else:
