@@ -130,7 +130,7 @@ Maniquí mujer le mira de una forma que te hiela la sangre.''')
                 characters[objetivo].enrageProc = 0
                 print('''
 {0} se ha cabreado. Será mejor tener cuidado con él, no tardará mucho en calmarse,
-normalmente es un gato tranquilo.'''.format(character[objetivo].name))
+normalmente es un gato tranquilo.'''.format(characters[objetivo].name))
                 print()
         elif isinstance(characters[objetivo], vecina):
             if not characters[objetivo].inmune:
