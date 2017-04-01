@@ -524,4 +524,3 @@ def game(sala):
             return True
 
 characters = []
-

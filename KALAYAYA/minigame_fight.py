@@ -59,7 +59,7 @@ class protagonista(personaje):
                 characters[objetivo].enrageProc = 0
                 print('''
 {0} se ha cabreado. Será mejor tener cuidado con él, no tardará mucho en calmarse,
-normalmente es un gato tranquilo.'''.format(characters[objetivo].name))
+normalmente es un gato tranquilo.'''.format(character[objetivo].name))
                 print()
         elif isinstance(characters[objetivo], vecina):
             if characters[objetivo].fe == 0:
@@ -100,9 +100,8 @@ La autoestima de {0} baja {1}.'''.format(characters[objetivo].name, dmg))
                 faith = 100
         elif isinstance(characters[objetivo], maniHombre):
             faith = 35
-            print('''
-Intentas ganarte la confianza de {0}.'''.format(characters[objetivo].name))
-            if characters[objetivo].fe - faith <= 0:
+            print('Intentas ganarte la confianza de {0}.'.format(characters[objetivo].name))
+            if characters[objetivo].fe - 35 <= 0:
                 characters[objetivo].takeDamage(3)
                 characters[objetivo].takeFaith(faith)
                 print('''
@@ -808,7 +807,10 @@ def createCharacters(salaActual):
     characters = []
     characters.append(protagonista(5))
     if salaActual == 5:
-        characters.append(fantasma(5))
+        if not rat:
+            characters.append(fantasma(5))
+        else:
+            characters.append(rata(5))
     elif salaActual == 6:
         characters.append(maniMujer(3))
         characters.append(maniHombre(5))
@@ -838,8 +840,8 @@ Pero eres valiente, te secas las lágrimas dispuesto a continuar con tu camino.
 ''')
 
 
-def game(sala):
-    createCharacters(sala)
+def game(sala, rat=False):
+    createCharacters(sala, rat)
     while True:
         showCurrentHealth()
         playerOption()
