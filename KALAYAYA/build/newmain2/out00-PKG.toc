@@ -47,10 +47,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_ssl.pyd',
    'EXTENSION'),
-  ('unicodedata',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\unicodedata.pyd',
-   'EXTENSION'),
   ('_ctypes',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_ctypes.pyd',
@@ -63,14 +59,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_hashlib.pyd',
    'EXTENSION'),
-  ('select',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\select.pyd',
-   'EXTENSION'),
-  ('_bz2',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_bz2.pyd',
-   'EXTENSION'),
   ('_lzma',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_lzma.pyd',
@@ -78,6 +66,18 @@
   ('_socket',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_socket.pyd',
+   'EXTENSION'),
+  ('_bz2',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_bz2.pyd',
+   'EXTENSION'),
+  ('select',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\select.pyd',
+   'EXTENSION'),
+  ('unicodedata',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\unicodedata.pyd',
    'EXTENSION'),
   ('base_library.zip',
    'C:\\Users\\Kevin '

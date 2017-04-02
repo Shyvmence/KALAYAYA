@@ -24,10 +24,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\datetime.py',
    'PYMODULE'),
-  ('stringprep',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\stringprep.py',
-   'PYMODULE'),
   ('_compat_pickle',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_compat_pickle.py',
@@ -39,10 +35,6 @@
   ('__future__',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\__future__.py',
-   'PYMODULE'),
-  ('argparse',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\argparse.py',
    'PYMODULE'),
   ('difflib',
    'C:\\Users\\Kevin '
@@ -220,10 +212,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\tempfile.py',
    'PYMODULE'),
-  ('subprocess',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\subprocess.py',
-   'PYMODULE'),
   ('tty',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\tty.py',
@@ -235,10 +223,6 @@
   ('pydoc_data.topics',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\pydoc_data\\topics.py',
-   'PYMODULE'),
-  ('textwrap',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\textwrap.py',
    'PYMODULE'),
   ('html.entities',
    'C:\\Users\\Kevin '
@@ -279,10 +263,6 @@
   ('uu',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\uu.py',
-   'PYMODULE'),
-  ('quopri',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\quopri.py',
    'PYMODULE'),
   ('email.feedparser',
    'C:\\Users\\Kevin '
@@ -336,10 +316,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\email\\charset.py',
    'PYMODULE'),
-  ('base64',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\base64.py',
-   'PYMODULE'),
   ('email._encoded_words',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\email\\_encoded_words.py',
@@ -392,25 +368,9 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\tarfile.py',
    'PYMODULE'),
-  ('bz2',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\bz2.py',
-   'PYMODULE'),
-  ('_compression',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_compression.py',
-   'PYMODULE'),
   ('lzma',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\lzma.py',
-   'PYMODULE'),
-  ('_dummy_thread',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_dummy_thread.py',
-   'PYMODULE'),
-  ('dummy_threading',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\dummy_threading.py',
    'PYMODULE'),
   ('py_compile',
    'C:\\Users\\Kevin '
@@ -424,10 +384,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\shutil.py',
    'PYMODULE'),
-  ('selectors',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\selectors.py',
-   'PYMODULE'),
   ('socket',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\socket.py',
@@ -439,30 +395,6 @@
   ('pydoc',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\pydoc.py',
-   'PYMODULE'),
-  ('copy',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\copy.py',
-   'PYMODULE'),
-  ('struct',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\struct.py',
-   'PYMODULE'),
-  ('token',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\token.py',
-   'PYMODULE'),
-  ('tokenize',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\tokenize.py',
-   'PYMODULE'),
-  ('gettext',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\gettext.py',
-   'PYMODULE'),
-  ('getopt',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\getopt.py',
    'PYMODULE'),
   ('pdb',
    'C:\\Users\\Kevin '
@@ -480,14 +412,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\string.py',
    'PYMODULE'),
-  ('_threading_local',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_threading_local.py',
-   'PYMODULE'),
-  ('threading',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\threading.py',
-   'PYMODULE'),
   ('logging',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\logging\\__init__.py',
@@ -495,10 +419,6 @@
   ('pprint',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\pprint.py',
-   'PYMODULE'),
-  ('contextlib',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\contextlib.py',
    'PYMODULE'),
   ('unittest.case',
    'C:\\Users\\Kevin '
@@ -508,14 +428,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\unittest\\suite.py',
    'PYMODULE'),
-  ('genericpath',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\genericpath.py',
-   'PYMODULE'),
-  ('posixpath',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\posixpath.py',
-   'PYMODULE'),
   ('fnmatch',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\fnmatch.py',
@@ -524,10 +436,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\unittest\\loader.py',
    'PYMODULE'),
-  ('warnings',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\warnings.py',
-   'PYMODULE'),
   ('unittest.runner',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\unittest\\runner.py',
@@ -535,14 +443,6 @@
   ('unittest.main',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\unittest\\main.py',
-   'PYMODULE'),
-  ('enum',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\enum.py',
-   'PYMODULE'),
-  ('signal',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\signal.py',
    'PYMODULE'),
   ('unittest.signals',
    'C:\\Users\\Kevin '
@@ -555,6 +455,106 @@
   ('doctest',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\doctest.py',
+   'PYMODULE'),
+  ('_compression',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_compression.py',
+   'PYMODULE'),
+  ('bz2',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\bz2.py',
+   'PYMODULE'),
+  ('quopri',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\quopri.py',
+   'PYMODULE'),
+  ('struct',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\struct.py',
+   'PYMODULE'),
+  ('warnings',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\warnings.py',
+   'PYMODULE'),
+  ('genericpath',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\genericpath.py',
+   'PYMODULE'),
+  ('posixpath',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\posixpath.py',
+   'PYMODULE'),
+  ('enum',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\enum.py',
+   'PYMODULE'),
+  ('signal',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\signal.py',
+   'PYMODULE'),
+  ('contextlib',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\contextlib.py',
+   'PYMODULE'),
+  ('_threading_local',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_threading_local.py',
+   'PYMODULE'),
+  ('threading',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\threading.py',
+   'PYMODULE'),
+  ('selectors',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\selectors.py',
+   'PYMODULE'),
+  ('_dummy_thread',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\_dummy_thread.py',
+   'PYMODULE'),
+  ('dummy_threading',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\dummy_threading.py',
+   'PYMODULE'),
+  ('subprocess',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\subprocess.py',
+   'PYMODULE'),
+  ('copy',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\copy.py',
+   'PYMODULE'),
+  ('token',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\token.py',
+   'PYMODULE'),
+  ('textwrap',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\textwrap.py',
+   'PYMODULE'),
+  ('argparse',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\argparse.py',
+   'PYMODULE'),
+  ('tokenize',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\tokenize.py',
+   'PYMODULE'),
+  ('gettext',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\gettext.py',
+   'PYMODULE'),
+  ('getopt',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\getopt.py',
+   'PYMODULE'),
+  ('base64',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\base64.py',
+   'PYMODULE'),
+  ('stringprep',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\lib\\stringprep.py',
    'PYMODULE'),
   ('minigame_cuadros',
    'C:\\Users\\Kevin '
@@ -596,10 +596,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_ssl.pyd',
    'EXTENSION'),
-  ('unicodedata',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\unicodedata.pyd',
-   'EXTENSION'),
   ('_ctypes',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_ctypes.pyd',
@@ -612,14 +608,6 @@
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_hashlib.pyd',
    'EXTENSION'),
-  ('select',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\select.pyd',
-   'EXTENSION'),
-  ('_bz2',
-   'C:\\Users\\Kevin '
-   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_bz2.pyd',
-   'EXTENSION'),
   ('_lzma',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_lzma.pyd',
@@ -627,6 +615,18 @@
   ('_socket',
    'C:\\Users\\Kevin '
    'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_socket.pyd',
+   'EXTENSION'),
+  ('_bz2',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\_bz2.pyd',
+   'EXTENSION'),
+  ('select',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\select.pyd',
+   'EXTENSION'),
+  ('unicodedata',
+   'C:\\Users\\Kevin '
+   'Machine\\AppData\\Local\\Programs\\Python\\Python35\\DLLs\\unicodedata.pyd',
    'EXTENSION')],
  [],
  [],

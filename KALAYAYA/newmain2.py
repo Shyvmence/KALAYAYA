@@ -13,7 +13,7 @@ import minigame_cuadros
 def getHora():
     global hora
     H = int((180-hora)*(2/3))
-    h = str(10 + H//60)
+    h = str(9 + H//60)
     m = str(H%60)
     if len(m) == 1:
         m = '0'+m
@@ -54,7 +54,7 @@ de la iglesia. Menos mal que te escaqueaste con ese "dolor de cabeza", de
 haber ido te habrías perdido esta mañana tan entretenida.'''.format(getHora()))
         if malo == 'abuela':
             newPrint('''
-De pronto recuerdas el pedacito de tarata. Das buena cuenta de él, a bocados
+De pronto recuerdas el pedacito de tarta. Das buena cuenta de él, a bocados
 pequeños, para que no se acabe demasiado rápido. Está riquísima, 
 ha valido la pena cogerla. Justo cuando te la acabas, llegas al parque y ahí
 están tus amigos. Parece que te estaban esperando. ¡A divertirse!''')
@@ -66,17 +66,17 @@ Entras en el kiosco y compras el último sobre de cromos que queda.
         elif malo == 'perro':
             newPrint('''
 Tiras la pelota al suelo y la llevas hasta el parque dándole patadas. Cuando 
-llegas tus maigos te ven, bajan corriendo de sus bicis y comienzan a preparar
+llegas tus amigos te ven, bajan corriendo de sus bicis y comienzan a preparar
 unas porterías improvisadas con unas piedras. ¡A divertirse!''')
         newPrint('''
-Ey, tú. Sí tú. Dejémosle solo...¿No crees? Me encanta cuando está así de feliz.
+Ey, tú. Sí tú. Dejémosle solo... ¿No crees? Me encanta cuando está así de feliz.
 No nos han presentado como es debido: Soy amor, soy asco, soy miedo, soy odio...
 Soy todo aquello que eres capaz de sentir. 
 Después de lo que ha pasado, me parecía apropiado hablar unas cosas contigo. 
 Verás, conozco muy bien a este niño. Es un buen chico: inocente, travieso... 
 Me apasiona la vitalidad de ese pequeño. Le conozco tan bien que sé incluso
 lo que va a hacer a continuación; su cabeza se va a llenar de remordimientos.
-Va a dar la vuelta, va a tomar aire y va a volver a casa a esperar a su família 
+Va a dar la vuelta, va a tomar aire y va a volver a casa a esperar a su familia 
 para devolver lo que ha cogido.
 Yo no soy capaz de cambiar el futuro. No manejo el transcurso de su porvenir,
 lo haces tú. 
@@ -112,11 +112,11 @@ No estás triste, por fin has comprendido, has entendido cómo funcionan las cos
 La has entendido a ella. El odio te había hecho olvidarla. Pero ahora la 
 comprendes. Te dejó sin decir adiós y así te dió la más grande de las lecciones. 
 Te marcó la solución de este puzzle. 
-Lo consisuió: creciste feliz.
-Tus pies dejan de caminar, ¿Cuánto timpo llevas andando? Estás temblando, el 
-miedo te invade, caes al suelo enmedio de un llanto desesperado.
+Lo consiguió: creciste feliz.
+Tus pies dejan de caminar, ¿cuánto tiempo llevas andando? Estás temblando, el 
+miedo te invade, caes al suelo en medio de un llanto desesperado.
 Pero eres valiente, te secas las lágrimas dispuesto a continuar con tu camino.
-Te paras en el borde del puente más alto de la ciudad. Cierras los ojos, sonries.
+Te paras en el borde del puente más alto de la ciudad. Cierras los ojos, sonríes.
 Huele a libertad, son las 12:00AM, los abuelos y D'Artacán ya han debido volver 
 de la iglesia. Menos mal que te escaqueaste con ese "dolor de cabeza", de haber 
 ido te habrías perdido esta mañana tan entretenida.
@@ -136,19 +136,19 @@ def gameOver():
     global malo
     if hora <= 90 and 'campanadas' not in eventos:
         newPrint('''
-Se escuchan once campanadas. Debe de quedar cerca de una hora
+Se escuchan diez campanadas. Debe de quedar cerca de una hora
 hasta que vuelvan los abuelos.
 ''')
         eventos.append('campanadas')
     if hora <= 0:
         newPrint('''
-Suenan las 12 campanadas de la iglesia. Escuchas la cerradura de la 
+Suenan las 11 campanadas de la iglesia. Escuchas la cerradura de la 
 puerta principal abrirse. Intentas esconderte, correr, pero es demasiado 
 tarde. ''')
         if malo == 'abuela':
             newPrint('''
-La abuela nada mas verte sabe lo que has hecho. Consigues esquivar 
-el primer zapatillazo, el resto te alcnzan todos en la espalda. Intentas 
+La abuela nada más verte sabe lo que has hecho. Consigues esquivar 
+el primer zapatillazo, el resto te alcanzan todos en la espalda. Intentas 
 explicarle lo que ha pasado, pero duele tanto que no puedes hablar. 
 No creo que te vuelva a apetecer tarta nunca más.
 Te encierras en tu cuarto. No saldrás hasta que vuelvas a estar solo.
@@ -162,7 +162,7 @@ los ángulos, al menos eso pensabas.
 ''')
         elif malo == 'perro':
             newPrint('''
-D'Artacán es capaz de olfatear la situación en solo unos segndos. 
+D'Artacán es capaz de olfatear la situación en solo unos segundos. 
 El primer lametazo lo sientes en la nuca. El resto te alcanzan todos en 
 la cara. D'Artacán sabe el asco que te dan sus babas, sigue hasta que sueltas
 la pelota. Después del baño desinfectante, estás tan cabreado que te vas a 
@@ -178,10 +178,10 @@ tu cuarto prometiéndote que no saldrás hasta que vuelvas a estar solo.
 
 def previousWin():
     try:
-        with open('completed.txt','r') as f:
+        with open('registro.txt','r') as f:
             check = []
             for i in f:
-                if i == '74442037M\n':
+                if i == '74442037M':
                     check.append(1)
                 elif i == '73024447A':
                     check.append(2)
@@ -395,7 +395,7 @@ erice el bello de la nuca. Más te vale salir de casa antes de que llegue...''')
         malo = 'abuelo'
     if opcion == '3':
         print('''
-Oh, vaya… creo que a D’Artacán le gusta mucho esa pelota. Cuando vea que alguien
+Oh, vaya... creo que a D’Artacán le gusta mucho esa pelota. Cuando vea que alguien
 la ha cogido se va a poner furioso. Más te vale salir de casa antes de que llegue...''')
         malo = 'perro'  
 
@@ -409,7 +409,7 @@ def getName():
 
 def getValidMoves():
     global sala
-    NSALAS = [[1,1], [1,5], [3,1], [3,5], [3,9], [5,1], [5,5], [5,9], [5,13], [7,1], [7,5], [7,13], [9,5], [9,9]]
+    NSALAS = [[1,1], [1,5], [3,1], [3,5], [3,9], [5,1], [5,5], [5,9], [5,13], [7,1], [7,5], [7,13], [9,5], [9,9], [9,13]]
     return [[sala[0]-2, sala[1]] in NSALAS, [sala[0], sala[1]+4] in NSALAS,
             [sala[0]+2, sala[1]] in NSALAS, [sala[0], sala[1]-4] in NSALAS]
 
@@ -2294,6 +2294,7 @@ def hall():
     global salaActual
     global yaLooteado
     global loot
+    global hora
     while True:
         gameOver()
         newPrint('''
@@ -2524,18 +2525,23 @@ Pulsa 0 para cancelar.''')
             if opcion3 == '1':
                 newPrint('''
 Metes un dedo en el líquido.... ¡ay, quema!''')
-                eventos.append('herido')
+                if 'herido' not in eventos:
+                    eventos.append('herido')
         elif opcion == '4':
-            newPrint('''
+            if 'windowOpen' not in eventos:
+                newPrint('''
 Está muy alto. Quizás puedas utilizar algo para ayudarte a bajar...''')
-            if promptItem('CUERDA'):
-                if 'herido' in eventos:
-                    newPrint('''
+                if promptItem('CUERDA'):
+                    if 'herido' in eventos:
+                        newPrint('''
 Con las manos así no puedes bajar por la cuerda.''')
-                else:
-                    newPrint('''
+                    else:
+                        newPrint('''
 Atas la cuerda al grifo de la bañera. Ahora puedes bajar por ella hasta la calle.''')
-                    eventos.append('windowOpen')
+                        eventos.append('windowOpen')
+            else:
+                newPrint('''
+Ahora puedes bajar por la cuerda hasta la calle.''')
         else:
             break
 ################################          
@@ -2613,9 +2619,11 @@ if introduccion:
 
 previously = previousWin()
 if 1 in previously:
-    eventos.append('finMadre')
+    if 'finMadre' not in eventos:
+        eventos.append('finMadre')
 elif 2 in previously:
-    eventos.append('finAbuelos')
+    if 'finAbuelos' not in eventos:
+        eventos.append('finAbuelos')
 
 
     

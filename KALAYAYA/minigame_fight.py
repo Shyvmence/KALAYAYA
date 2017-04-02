@@ -90,6 +90,8 @@ La autoestima de {0} baja {1}.'''.format(characters[objetivo].name, dmg))
         faith = 0
         if isinstance(characters[objetivo], fantasma):
             faith = random.randint(20,40)
+            if faith > characters[objetivo].fe:
+                faith = characters[objetivo].fe
         elif isinstance(characters[objetivo], maniMujer):
             hayHombre = False
             for k in characters:
@@ -102,7 +104,6 @@ La autoestima de {0} baja {1}.'''.format(characters[objetivo].name, dmg))
             faith = 35
             print('Intentas ganarte la confianza de {0}.'.format(characters[objetivo].name))
             if characters[objetivo].fe - 35 <= 0:
-                characters[objetivo].takeDamage(3)
                 characters[objetivo].takeFaith(faith)
                 print('''
 Confía tanto en ti que se pone de tu parte. Piensa que deberías descansar.
@@ -110,7 +111,8 @@ Maniquí mujer le mira de una forma que te hiela la sangre.''')
                 if characters[objetivo].vida >= 3:
                     print('La autoestima de {0} baja 3.'.format(characters[objetivo].name))
                 else:
-                    print('La autoestima de {0} baja {1}.'.format(characters[objetivo].name, self.vida))
+                    print('La autoestima de {0} baja {1}.'.format(characters[objetivo].name, characters[objetivo].vida))
+                characters[objetivo].takeDamage(3)
             else:
                 print('Ahora confía un {0}% más en tus palabras.'.format(faith))
                 characters[objetivo].takeFaith(faith)
@@ -311,11 +313,17 @@ class maniHombre(personaje):
         if self.fe < 50:
             limite = 15 
         faith = random.randint(0,limite)
-        characters[0].takeFaith(faith)
         outputs = ['{0} te invita amistosamente a que bailes.', '{0} te advierte del temperamento de Maniquí mujer.',
                    '{0} te coacciona para que hagas caso a Maniquí mujer.', '{0} te mira con ojos de comprensión mientras te ordena que bailes.']
         r = random.randint(0,3)
         print(outputs[r].format(self.name))
+        if characters[0].fe >= faith:
+            print('''\
+Ahora confías un {0}% más en él.'''.format(faith))
+        else:
+            print('''\
+Ahora confias un {0}% más en él.'''.format(characters[0].fe))
+        characters[0].takeFaith(faith)
         print()
 
 class gato(personaje):
@@ -408,8 +416,8 @@ Su autoestima aumenta {0}.'''.format(healing))
         else:
             faith = 100
             print('Es imposible resistirse a la labia de {0}.'.format(self.name))
-        if self.fe + faith >=100:
-            print('Tu confianza aumenta un {0}%.'.format(100-self.fe))
+        if characters[0].fe - faith <= 0:
+            print('Tu confianza aumenta un {0}%.'.format(characters[0].fe))
         else:
             print('Tu confianza aumenta un {0}%.'.format(faith))
         characters[0].takeFaith(faith)
@@ -609,49 +617,62 @@ class rata(personaje):
 
     winMessage = '''
 {0} ha dañado toda tu autoestima.
-Te toca reconocerlo, estás cagado de miedo. El pánico te deja inmóvil.'''.format(name)
+Sientes demasiada envidia de esa rata tan valiente. Su forma de luchar
+utilizando la amistad en su favor...
+Caes al suelo y rompes a llorar.'''.format(name)
 
     def bite(self):
+        hiper = False
+        prob = 20
+        if countAdds()>2:
+            prob -=10
+        elif countAdds()>1:
+            prob -=5
+        else:
+            prob =20   
         dmg = 1
         if characters[0].fe < 50:
             dmg = 2
-        if random.randint(1, 20) == 1:
+        if random.randint(1, prob) == 1:
             dmg = 3
-            print('''HIPER COLMILLO''')
-        characters[0].takeDamage(dmg)
-        print('''
-{0} '''.format(self.name))
+            hiper = True
+            print('''
+{0} usó HIP.COLMILLO
+Es super efectivo'''.format(self.name))
+        if not hiper:
+            print('''
+{0} se lanza a mordisquearte los tobillos. No duele, sus pequeños dientes no
+consiguen atravesar la tela de tus pantalones. Pero notas la fiereza y la
+determinación de su acto.
+Sientes envidia de su valía.'''.format(self.name))
+        if dmg > characters[0].vida:
+            dmg = characters[0].vida
         print('Tu autoestima baja {0}.'.format(dmg))
+        characters[0].takeDamage(dmg)
         print()
         
     def tailwhip(self):
-        if characters[0].fe - 40 >= 0:
-            f = 40
-        else:
-            f = characters[0].fe
-        characters[0].takeFaith(40)
-        print('''
-{0} 
-{1}%'''.format(self.name, f))
-        print()
+        r = random.randint(0,1)
+        outputs = ['''
+{0} usó LÁTIGO''', '''
+{0} se sube sobre su cola para estar más cerca de tus ojos.
+Este animal es puro honor en la batalla.''']
+        print(outputs[r].format(self.name))
+        f = min(characters[0].fe, 40)
+        print('Tu confianza aumenta un {0}%.'.format(f))
+        characters[0].takeFaith(f)
+           
+
         
-    def beatup(self):
-        dmg = countAdds()
-        print('''
-''')
-        characters[0].takeDamage(dmg)
             
     def enemyAction(self):
         if characters[0].vida == 1:
             self.bite()
         else:
-            if countAdds() >= 2:
-                self.beatup()
+            if random.randint(0,4) == 0:
+                self.tailwhip()
             else:
-                if random.randint(0,4) == 0:
-                    self.tailwhip()
-                else:
-                    self.bite()
+                self.bite()
         if countAdds() < 3:
             if self.fe == 100:
                 chance = 100
@@ -668,21 +689,35 @@ class trash(personaje):
     
     name = 'Roedor secuaz'
     winMessage = '''
-'''
+{0} ha acabado con toda tu autoestima.'''.format(name)
     
     def mordisco(self):
         dmg = 1
         characters[0].takeDamage(dmg)
-        print()
+        print('''
+{0} obedece fielmente las órdenes de Rata, se lanza a la carga y
+te da un pequeño mordisco en el tobillo.
+Ves en los ojos de este pequeño roedor el mismo brillo que ves en
+los de Rata. Todos los grandes luchadores tienen aprendices.
+Tu autoestima baja {1}.'''.format(self.name, dmg))
 
     def chirrido(self):
-        faith = 20
+        faith = min(characters[0].fe, 20)
         characters[0].takeFaith(faith)
-        print()
-
+        print('''
+{0} obedece fielmente las órdenes de Rata, hace un ruido muy agudo
+que te hace prestarle toda tu atención.
+Tu confianza aumenta {1}%.'''.format(self.name, faith))
+            
     def kiss(self):
-        characters[0].vida += 1
-        print()
+        print('''
+{0} no entinede muy bien una de las órdenes de Rata, se pone nervioso
+y hace lo que el corazón le pide. Se acerca y te da un besito cálido
+y tímido en el pie.'''.format(self.name))
+        if characters[0].vida != characters[0].vidaMax:
+            characters[0].vida += 1
+            print('''
+Tu autoestima aumenta en 1''')
         
     def removefromlist(self):
         characters.remove(characters[characters.index(self)])
